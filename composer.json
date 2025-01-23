@@ -8,7 +8,7 @@
       "name": "TechGhor",
       "email": "mohd.yasin2012@gmail.com"
     }
-  ],,
+  ],
   "require": {
     "techghor/laravel-license-manager": "dev-main"
   },
