@@ -4,5 +4,5 @@ This Laravel package provides a License Manager system that allows you to easily
 
 ## Installation
 
-1. Install the package via Composer:
+1. Install the package via Composer: composer require techghor/laravel-license-manager
 
