@@ -32,10 +32,16 @@ class LicenseController
     {
         $config = config('license');
 
+        $licenseKey = $config['license_key'] ?? '';
+        $encryptionKey = $config['encryption_key'] ?? '';
+
+        $installed = !empty($licenseKey) && !empty($encryptionKey);
+
         return view('license-manager::install', [
-            'licenseKey' => $config['license_key'] ?? '',
+            'licenseKey' => $licenseKey,
             'apiUrl' => $config['api_url'] ?? '',
             'invoiceUrl' => $config['invoice_url'] ?? '',
+            'installed' => $installed,
         ]);
     }
 

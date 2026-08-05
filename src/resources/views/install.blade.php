@@ -38,22 +38,26 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('license.install.save') }}">
-            @csrf
+        @if(isset($installed) && $installed)
+            <div class="alert alert-success">License Manager is already installed.</div>
+        @else
+            <form method="POST" action="{{ route('license.install.save') }}">
+                @csrf
 
-            <label for="license_key">License Key</label>
-            <input id="license_key" type="text" name="license_key" value="{{ old('license_key', $licenseKey) }}" placeholder="Enter license key" required>
+                <label for="license_key">License Key</label>
+                <input id="license_key" type="text" name="license_key" value="{{ old('license_key', $licenseKey) }}" placeholder="Enter license key" required>
 
-            <label for="api_url">API URL</label>
-            <input id="api_url" type="text" name="api_url" value="{{ old('api_url', $apiUrl) }}" placeholder="Enter license API URL" required>
+                <label for="api_url">API URL</label>
+                <input id="api_url" type="text" name="api_url" value="{{ old('api_url', $apiUrl) }}" placeholder="Enter license API URL" required>
 
-            <label for="invoice_url">Invoice URL</label>
-            <input id="invoice_url" type="text" name="invoice_url" value="{{ old('invoice_url', $invoiceUrl) }}" placeholder="Enter invoice API URL" required>
+                <label for="invoice_url">Invoice URL</label>
+                <input id="invoice_url" type="text" name="invoice_url" value="{{ old('invoice_url', $invoiceUrl) }}" placeholder="Enter invoice API URL" required>
 
-            <p style="font-size: 14px; color: #555;">An encryption key will be generated automatically.</p>
+                <p style="font-size: 14px; color: #555;">An encryption key will be generated automatically.</p>
 
-            <button type="submit">Install License Manager</button>
-        </form>
+                <button type="submit">Install License Manager</button>
+            </form>
+        @endif
 
         <div class="footer">
             If the license keys are not set, this page is displayed until installation is complete.
