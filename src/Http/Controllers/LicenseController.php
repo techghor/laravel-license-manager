@@ -45,6 +45,17 @@ class LicenseController
         ]);
     }
 
+    public function manualCheck()
+    {
+        $result = $this->licenseManager->checkLicense(true);
+
+        if ($result !== true) {
+            return $result;
+        }
+
+        return redirect()->back()->with('status', 'License check completed successfully.');
+    }
+
     public function installSave(Request $request)
     {
         $request->validate([

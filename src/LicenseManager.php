@@ -21,13 +21,13 @@ class LicenseManager
         $this->encryptionKey = $config['encryption_key'];
     }
 
-    public function checkLicense()
+    public function checkLicense(bool $force = false)
     {
         if (!$this->isInstalled()) {
             return redirect()->route('license.install');
         }
 
-        if ($this->shouldPerformCheck()) {
+        if ($force || $this->shouldPerformCheck()) {
             $decryptedLicenseKey = $this->decrypt($this->licenseKey);
             $apiEndpoint = $this->apiUrl . '/' . $decryptedLicenseKey;
 
