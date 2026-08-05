@@ -25,7 +25,7 @@ class LicenseController
         $encryptedLicenseKey = $config['license_key'];
         $decryptedLicenseKey = $this->licenseManager->decrypt($encryptedLicenseKey);
 
-        return view('license-manager::payment', compact('dueAmount', 'currencySymbol', 'paymentUrl', 'invoiceApi', 'decryptedLicenseKey'));
+        return view('license-manager::payment', compact('dueAmount', 'currencySymbol', 'paymentUrl', 'invoiceApi', 'decryptedLicenseKey', 'encryptedLicenseKey'));
     }
 
     public function install()
