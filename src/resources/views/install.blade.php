@@ -26,6 +26,7 @@
             <div class="alert alert-success">{{ session('status') }}</div>
         @endif
 
+        {{-- Error Messages --}}
         @if(isset($errors) && $errors->any())
             <div class="alert alert-error">
                 <p><strong>There are errors with your submission:</strong></p>
