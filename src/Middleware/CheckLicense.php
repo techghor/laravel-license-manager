@@ -3,6 +3,8 @@
 namespace TechGhor\LaravelLicenseManager\Middleware;
 
 use Closure;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use TechGhor\LaravelLicenseManager\LicenseManager;
 
 class CheckLicense
@@ -17,9 +19,13 @@ class CheckLicense
     public function handle($request, Closure $next)
     {
         try {
-            $this->licenseManager->checkLicense();
+            $result = $this->licenseManager->checkLicense();
         } catch (\Exception $e) {
             return response("License Error: " . $e->getMessage(), 403);
+        }
+
+        if ($result instanceof Response || $result instanceof RedirectResponse) {
+            return $result;
         }
 
         return $next($request);

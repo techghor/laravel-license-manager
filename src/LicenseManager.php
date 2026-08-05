@@ -23,6 +23,10 @@ class LicenseManager
 
     public function checkLicense()
     {
+        if (!$this->isInstalled()) {
+            return redirect()->route('license.install');
+        }
+
         if ($this->shouldPerformCheck()) {
             $decryptedLicenseKey = $this->decrypt($this->licenseKey);
             $apiEndpoint = $this->apiUrl . '/' . $decryptedLicenseKey;
@@ -50,6 +54,11 @@ class LicenseManager
         return true;
     }
 
+    private function isInstalled()
+    {
+        return !empty($this->licenseKey) && !empty($this->encryptionKey);
+    }
+
     private function shouldPerformCheck()
     {
         return !Cache::has('last_license_check') || Cache::get('last_license_check') !== now()->toDateString();
@@ -70,7 +79,16 @@ class LicenseManager
 
     public function decrypt($data)
     {
-        list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
+        if (empty($data)) {
+            return '';
+        }
+
+        $decoded = base64_decode($data, true);
+        if ($decoded === false || strpos($decoded, '::') === false) {
+            return '';
+        }
+
+        list($encrypted_data, $iv) = explode('::', $decoded, 2);
         return openssl_decrypt($encrypted_data, 'AES-256-CBC', $this->encryptionKey, 0, $iv);
     }
 }
