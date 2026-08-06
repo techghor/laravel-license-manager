@@ -80,38 +80,28 @@
             border-radius: 0.375rem;
         }
 
-        /* Legacy Bootstrap Overrides for DataTables Dynamic API Content */
-
-        /* Status Badges */
+        /* Modernized Bootstrap Fallback Styles for Dynamic API HTML */
         #lead-table .badge {
             display: inline-flex;
             align-items: center;
-            padding: 0.25rem 0.625rem;
+            padding: 0.2rem 0.5rem;
             font-size: 0.7rem;
             font-weight: 600;
             border-radius: 9999px;
             line-height: 1;
         }
-
-        #lead-table .bg-danger, 
-        #lead-table .badge-danger {
-            background-color: #ffe4e6 !important; /* rose-100 */
-            color: #9f1239 !important; /* rose-800 */
+        #lead-table .bg-danger, #lead-table .badge-danger {
+            background-color: #ffe4e6 !important;
+            color: #9f1239 !important;
         }
-
-        #lead-table .bg-success, 
-        #lead-table .badge-success {
-            background-color: #dcfce7 !important; /* emerald-100 */
-            color: #166534 !important; /* emerald-800 */
+        #lead-table .bg-success, #lead-table .badge-success {
+            background-color: #dcfce7 !important;
+            color: #166534 !important;
         }
-
-        #lead-table .bg-warning, 
-        #lead-table .badge-warning {
-            background-color: #fef3c7 !important; /* amber-100 */
-            color: #92400e !important; /* amber-800 */
+        #lead-table .bg-warning, #lead-table .badge-warning {
+            background-color: #fef3c7 !important;
+            color: #92400e !important;
         }
-
-        /* Dynamic Action Buttons */
         #lead-table .btn-xs {
             padding: 0.3rem 0.625rem;
             font-size: 0.75rem;
@@ -122,35 +112,32 @@
             justify-content: center;
             gap: 0.25rem;
             text-decoration: none !important;
-            transition: background-color 0.15s ease-in-out;
+            transition: all 0.15s ease-in-out;
             border: none;
             line-height: 1.25;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
-
         #lead-table .btn-primary {
-            background-color: #4f46e5 !important; /* indigo-600 */
+            background-color: #4f46e5 !important;
             color: #ffffff !important;
         }
-
         #lead-table .btn-primary:hover {
-            background-color: #4338ca !important; /* indigo-700 */
+            background-color: #4338ca !important;
         }
-
         #lead-table .btn-warning {
-            background-color: #f59e0b !important; /* amber-500 */
+            background-color: #f59e0b !important;
             color: #ffffff !important;
         }
-
         #lead-table .btn-warning:hover {
-            background-color: #d97706 !important; /* amber-600 */
+            background-color: #d97706 !important;
         }
     </style>
 </head>
 <body class="min-h-screen py-6 px-4 sm:px-6 lg:px-8 bg-slate-50 text-slate-800">
 
-    <div class="max-w-5xl mx-auto space-y-4">
+    <div class="max-w-6xl mx-auto space-y-4">
 
-        <!-- Compact Alert Banner -->
+        <!-- Banner Alert -->
         <div class="bg-rose-50 border-l-4 border-rose-500 rounded-xl p-4 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div class="flex items-center gap-3">
                 <div class="p-2 bg-rose-100 text-rose-600 rounded-lg flex-shrink-0">
@@ -161,12 +148,12 @@
                     <p class="text-xs text-rose-700">Please clear your outstanding balance to restore software access.</p>
                 </div>
             </div>
-            <a href="#invoices-section" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg transition shadow-sm flex items-center gap-1.5 whitespace-nowrap">
-                <i class="fa-solid fa-credit-card text-xs"></i> Pay Balance
-            </a>
+            <span class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-lg border border-rose-200 uppercase tracking-wider whitespace-nowrap">
+                License Manager
+            </span>
         </div>
 
-        <!-- Compact KPI Strip -->
+        <!-- KPI Strip -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <!-- Total Due -->
             <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-200/80 flex items-center justify-between">
@@ -192,7 +179,7 @@
                 </div>
             </div>
 
-            <!-- Key -->
+            <!-- License Key -->
             <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-200/80 flex items-center justify-between">
                 <div class="overflow-hidden">
                     <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">License Key</p>
@@ -241,17 +228,17 @@
                 "responsive": true,
                 "ajax": invoiceApiUrl,
                 columns: [
-                    { title: "Invoice No" },
-                    { title: "Institute" },
-                    { title: "Bill Date" },
-                    { title: "Due Date" },
-                    { title: "Bill Amount" },
-                    { title: "Paid Amount" },
-                    { title: "Status" },
-                    { title: "PDF", className: "text-center" },
-                    { title: "Pay Link", className: "text-center" }
+                    { data: 8, title: "Pay Action", className: "text-center" }, // Pay Link placed as 1st Column
+                    { data: 0, title: "Invoice No" },
+                    { data: 1, title: "Institute" },
+                    { data: 2, title: "Bill Date" },
+                    { data: 3, title: "Due Date" },
+                    { data: 4, title: "Bill Amount" },
+                    { data: 5, title: "Paid Amount" },
+                    { data: 6, title: "Status" },
+                    { data: 7, title: "PDF", className: "text-center" }
                 ],
-                order: [[3, 'desc']],
+                order: [[4, 'desc']], // Sorted by Due Date (column index 4)
                 lengthMenu: [[10, 25, 50, -1], ['10', '25', '50', 'All']]
             });
         });
